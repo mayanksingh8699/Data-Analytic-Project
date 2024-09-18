@@ -1,1 +1,34 @@
 In this file i will attach all the SQL Query. which is used in data analytic
+
+Basic SQL Query:
+
+Create: Used to create a new table in the database.
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    position VARCHAR(50),
+    salary DECIMAL(10, 2)
+);
+
+Insert: Inserts new records into a table.
+INSERT INTO employees (id, name, position, salary)
+VALUES (1, 'John Doe', 'Manager', 70000.00);
+
+Update: Modifies existing records in a table.
+UPDATE employees
+SET salary = 75000
+WHERE id = 1;
+
+Alter: Used to modify the structure of an existing table (e.g., add a column).
+ALTER TABLE employees
+ADD hire_date DATE;
+
+Delete: Remove records from table based on condition.
+DELETE FROM employees
+WHERE id = 1;
+
+Drop: Deletes entire table or database
+DROP TABLE employees;
+
+Truncate: Remove all record from table, but keeps the structure.
+TRUNCATE TABLE employees;
