@@ -23,16 +23,39 @@ ManagerId Int,
 Salary decimal(10,2));
 
 -- Insert Value in table
-Insert into EmployeeRecord(Eid,Ename,ManagerId,Salary)
-Values(1,'Mayank',101,25000),
-(2,'Vikash',102,50000),
-(3,'Priyank',103,40000),
-(4,'Tarun',104,60000),
-(5,'Naveen',105,45000);
+Insert into EmployeeInfo(Eid,Ename,ManagerId,Salary)
+Values(1,'Mayank',2,25000),
+(2,'Vikash',3,50000),
+(3,'Priyank',3,40000),
+(4,'Tarun',3,60000),
+(5,'Naveen',2,45000);
 
 Self Join
 select e.Ename as EmployeeName,
        m.Ename as ManagerName
-from EmployeeRecord e
-Left join EmployeeRecord m
+from EmployeeInfo e
+Left join EmployeeInfo m
 On e.ManagerId = m.Eid;
+
+Question 2: Write a query to calculate the total salary of employees managed by each manager.
+
+quesry: select m.Ename as ManagerName, sum(e.Salary) as Total_Salary
+from EmployeeRecord e
+Join EmployeeRecord m
+on e.ManagerId = m.Eid
+Group by m.Ename;
+
+Output: 
+ManagerName, Total_Salary
+Priyank,150000.00
+Vikash,70000.00
+
+Question 3: Write a query to find the employee with the highest salary.
+
+query: select Top 1 Ename,Salary
+from EmployeeRecord
+Order By Salary Desc;
+
+Output:
+
+
