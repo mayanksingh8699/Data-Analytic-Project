@@ -1,0 +1,38 @@
+Question 1. we have EmployeeInfo Table Like
+Eid,Ename,ManagerId,Salary
+1,Mayank,2,25000
+2,Vikash,3,50000
+3,Priyank,3,60000
+4,Tarun,3,35000
+5,Naveen,2,45000
+
+Output Table Like
+EmployeeName,ManagerName
+Mayank,Vikash
+Vikash,Priyank
+Priyank,Priyank
+Tarun,Priyank
+Naveen,Vikash
+
+SQL Query
+-- Create Table of EmployeeInfo
+Create Table EmployeeRecord(
+Eid int,
+Ename Varchar(90),
+ManagerId Int,
+Salary decimal(10,2));
+
+-- Insert Value in table
+Insert into EmployeeRecord(Eid,Ename,ManagerId,Salary)
+Values(1,'Mayank',101,25000),
+(2,'Vikash',102,50000),
+(3,'Priyank',103,40000),
+(4,'Tarun',104,60000),
+(5,'Naveen',105,45000);
+
+Self Join
+select e.Ename as EmployeeName,
+       m.Ename as ManagerName
+from EmployeeRecord e
+Left join EmployeeRecord m
+On e.ManagerId = m.Eid;
