@@ -48,3 +48,71 @@ Wrote SQL queries to extract meaningful insights. Highlights include:
 ```sql
 SELECT FORMAT(sale_date, 'yyyy-MM') AS sale_month, SUM(total_amount) AS revenue FROM sales GROUP BY FORMAT(sale_date, 'yyyy-MM');
 
+SQL Query
+-- 1. Total sales revenue by month
+
+SELECT 
+    FORMAT(sale_date, 'yyyy-MM') AS sale_month,
+    SUM(total_amount) AS monthly_revenue
+FROM sales
+GROUP BY FORMAT(sale_date, 'yyyy-MM')
+ORDER BY sale_month;
+
+-- 2. Top 10 Customers by Revenue
+
+SELECT 
+    c.customer_id,
+    c.customer_name,
+    SUM(s.total_amount) AS total_spent
+FROM sales s
+JOIN customers c ON s.customer_id = c.customer_id
+GROUP BY c.customer_id, c.customer_name
+ORDER BY total_spent DESC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
+
+--3. Sales by Region
+SELECT 
+    r.region,
+    SUM(s.total_amount) AS region_revenue
+FROM sales s
+JOIN customers c ON s.customer_id = c.customer_id
+JOIN regions r ON c.region = r.region
+GROUP BY r.region
+ORDER BY region_revenue DESC;
+
+--4. Best-Selling Products
+SELECT 
+    p.product_name,
+    SUM(s.quantity) AS total_units_sold,
+    SUM(s.total_amount) AS total_sales
+FROM sales s
+JOIN products p ON s.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY total_sales DESC;
+
+--5. Repeat Customers (Customers who bought more than once)
+SELECT 
+    c.customer_name,
+    COUNT(DISTINCT FORMAT(s.sale_date, 'yyyy-MM')) AS active_months,
+    COUNT(*) AS total_orders
+FROM sales s
+JOIN customers c ON s.customer_id = c.customer_id
+GROUP BY c.customer_name
+HAVING COUNT(*) > 1
+ORDER BY total_orders DESC;
+
+--6. Revenue Trend (Rolling 3-Month Avg)
+WITH MonthlyRevenue AS (
+    SELECT 
+        FORMAT(sale_date, 'yyyy-MM') AS sale_month,
+        SUM(total_amount) AS revenue
+    FROM sales
+    GROUP BY FORMAT(sale_date, 'yyyy-MM')
+)
+SELECT 
+    sale_month,
+    revenue,
+    AVG(revenue) OVER (ORDER BY sale_month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS rolling_3_month_avg
+FROM MonthlyRevenue;
+
