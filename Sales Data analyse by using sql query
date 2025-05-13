@@ -1,0 +1,50 @@
+# 📊 Sales Data Analysis Project using SQL Server
+
+## 🔍 Project Overview
+
+This project showcases my ability to perform **data analysis using SQL Server** on real-world-like sales data. I imported cleaned CSV files into a relational database and used SQL queries to extract meaningful business insights. The goal was to demonstrate data cleaning, transformation, querying, and reporting skills.
+
+---
+
+## 🛠️ Tools & Technologies
+
+- **Database:** Microsoft SQL Server  
+- **Language:** SQL (T-SQL)  
+- **Data Source:** CSV files (customers, products, sales, regions)  
+- **Optional Visualization:** Power BI (for dashboarding, if applicable)
+
+---
+
+## 📂 Dataset Description
+
+| Table Name  | Description                            |
+|-------------|----------------------------------------|
+| `customers` | Contains customer details              |
+| `products`  | Contains product details               |
+| `sales`     | Contains individual sales transactions |
+| `regions`   | Contains region/location information   |
+
+---
+
+## ⚙️ Project Steps
+
+### ✅ Step 1: Collected & Cleaned Data  
+Downloaded and pre-processed CSV files to remove nulls, ensure consistency, and correct formatting.
+
+### ✅ Step 2: Created SQL Tables  
+Created relational tables in SQL Server using the `CREATE TABLE` command.
+
+### ✅ Step 3: Loaded CSV Data into SQL Server  
+Used SQL Server Management Studio (SSMS) import wizard to load the cleaned CSV files into respective tables.
+
+### ✅ Step 4: Performed Data Analysis  
+Wrote SQL queries to extract meaningful insights. Highlights include:
+
+---
+
+## 📈 Key SQL Queries & Insights
+
+- **Monthly Sales Revenue**
+```sql
+SELECT FORMAT(sale_date, 'yyyy-MM') AS sale_month, SUM(total_amount) AS revenue FROM sales GROUP BY FORMAT(sale_date, 'yyyy-MM');
+
